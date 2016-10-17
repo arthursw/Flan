@@ -495,8 +495,8 @@ $(document).ready( function() {
 		} else if(event.key == 'down') {
 			rectangle.nHeight -= 1;
 		}
-		if(rectangle.nHeight < 0) {
-			rectangle.nHeight = 0;
+		if(rectangle.nHeight < 1) {
+			rectangle.nHeight = 1;
 		} else if(rectangle.nHeight > 100) {
 			rectangle.nHeight = 100;
 		}
@@ -505,8 +505,8 @@ $(document).ready( function() {
 		} else if(event.key == 'left') {
 			rectangle.nWidth -= 1;
 		}
-		if(rectangle.nWidth < 0) {
-			rectangle.nWidth = 0;
+		if(rectangle.nWidth < 1) {
+			rectangle.nWidth = 1;
 		} else if(rectangle.nWidth > 100) {
 			rectangle.nWidth = 100;
 		}

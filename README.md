@@ -1,4 +1,4 @@
-### Flan
+## Flan
 
 *english translation below*
 
@@ -27,7 +27,24 @@ L'image et le son peuvent être floutés simultanément, illustrant ainsi l'effe
 
 Le flou appliqué sur le son est un [flou gaussien](https://fr.wikipedia.org/wiki/Fonction_gaussienne), il est appliqué sur le signal sonore généré.
 
-### Custard
+### Utilisation
+
+ - augmenter/diminuer le nombre de symbole possible par ligne: droite/gauche
+ - augmenter/diminuer le nombre de ligne: haut/bas
+
+Les controles en haut à gauche permettent de changer la taille de la zone de motif, le nombre de symbole par ligne et le nombre de ligne, la quantité de flou, et l'influence du flou sur le volume sonore.
+
+### A essayer
+
+ - avec une seule ligne
+ - avec un seul symbole
+ - observer l'influence de la modulation de fréquence sur le signal sonore
+ - avec un grand nombre de lignes
+ - avec un grand nombre de symboles
+ - avec une zone très large, puis très petite 
+ - observer l'influence du flou sur le signal sonore
+
+## Custard
 
 *Flan* means *custard* in French, the name comes from the contraction of *flou* (blur) and *lent* (slow).
 
@@ -52,5 +69,20 @@ The image and the sound can be both blurred, giving an insight about what it mea
 
 The blur applied on the sound is a [gaussian blur](https://en.wikipedia.org/wiki/Gaussian_blur).
 
+### Usage
 
+ - increase/decrease the number of symbols: right/left
+ - increase/decrease the number of lines: up/down
+
+The top left controls enable to change the size of the pattern zone, the number of symbol per line and the number of lines, the amount of blur, and the influence of the blur of the volume.
+
+### To try
+
+ - one line only
+ - one symbol only
+ - check the influence of frequency modulation
+ - many lines
+ - many symbols
+ - large/small zone
+ - check how blur impacts sound
 

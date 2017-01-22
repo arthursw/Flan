@@ -1,5 +1,7 @@
 ## Flan
 
+[Demo](https://arthursw.github.io/Flan/)
+
 *english translation below*
 
 Flou + Lent = Flan.

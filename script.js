@@ -143,7 +143,7 @@ $(document).ready( function() {
 
 	window.oscillator = oscillator;
 
-	var gui = new dat.GUI();
+	var gui = new dat.GUI({ load: JSON });
 
 	var volumeController = gui.add({volume: 0.01}, 'volume', 0, 1);
 	
@@ -329,13 +329,13 @@ $(document).ready( function() {
 	rectangle.nWidth = 3;
 	rectangle.strokeWidth = 0;
 
+	gui.remember(rectangle);
 
 	gui.add(rectangle, 'width', 10, 1000);
 	gui.add(rectangle, 'height', 10, 1000);
 	gui.add(rectangle, 'nHeight', 1, 100);
 	gui.add(rectangle, 'nWidth', 1, 100);
 	gui.add(rectangle, 'strokeWidth', 0, 5).step(0.1);
-
 	let canvasContext = canvas.getContext('2d');
 
 
@@ -366,6 +366,21 @@ $(document).ready( function() {
 	showWaveformController.onChange(function(value){
 		$('#soundCanvas').toggleClass('hidden')
 	})
+
+	gui.add({saveSVG: function() {
+
+
+		let svg = paper.project.exportSVG( { asString: true });
+
+		// create an svg image, create a link to download the image, and click it
+		let blob = new Blob([svg], {type: 'image/svg+xml'});
+		let url = URL.createObjectURL(blob);
+		let link = document.createElement("a")
+		link.download = 'flan.svg';
+		link.href = url;
+		link.click();
+
+	}}, 'saveSVG');
 
 	var marginSize = 2;
 	var stepY = rectangle.height / rectangle.nHeight;

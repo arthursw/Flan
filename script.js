@@ -167,16 +167,17 @@ $(document).ready( function() {
 
 	paper.setup('paperCanvas');
 
-	let lineWidth = 1
+	let lineWidth = 3
 	var motifs = {
 		MirroredTriangle: function(rectangle, group) {
-			var p1 = new Path({ fillColor: 'black' });
+			let fillColor = rectangle.strokeWidth == 0 ? 'black' : null;
+			var p1 = new Path({ strokeColor: 'black', strokeWidth: rectangle.strokeWidth, fillColor: fillColor });
 			p1.add(rectangle.topCenter);
 			p1.add(rectangle.rightCenter);
 			p1.add(rectangle.leftCenter);
 			group.addChild(p1);
 
-			var p2 = new Path({ fillColor: 'black' });
+			var p2 = new Path({ strokeColor: 'black', strokeWidth: rectangle.strokeWidth, fillColor: fillColor});
 			p2.add(rectangle.bottomCenter);
 			p2.add(rectangle.leftCenter);
 			p2.add(rectangle.rightCenter);
@@ -189,7 +190,13 @@ $(document).ready( function() {
 		},
 		SimpleRectangle: function(rectangle, group) {
 			var r =  new Path.Rectangle(rectangle);
-			r.fillColor = 'black';
+			r.strokeColor = 'black';
+			if(rectangle.strokeWidth == 0) {
+				r.fillColor = 'black';
+				r.strokeWidth = 0;
+			} else {
+				r.strokeWidth = rectangle.strokeWidth;
+			}
 			group.addChild(r);
 			return {
 				type: 'square',
@@ -198,9 +205,20 @@ $(document).ready( function() {
 			}
 		},
 		Circle: function(rectangle, group) {
+			let fillColor = rectangle.strokeWidth == 0 ? 'black' : null;
 			var d = rectangle.width < rectangle.height ? rectangle.width : rectangle.height;
 			var c =  new Path.Circle(rectangle.center, d / 2);
-			c.fillColor = 'black';
+			
+			c.strokeColor = 'black';
+			// c.strokeWidth = lineWidth;
+
+			if(rectangle.strokeWidth == 0) {
+				c.fillColor = 'black';
+				c.strokeWidth = 0;
+			} else {
+				c.strokeWidth = rectangle.strokeWidth;
+			}
+
 			group.addChild(c);
 			return {
 				type: 'sine',
@@ -210,7 +228,8 @@ $(document).ready( function() {
 		},
 		Line: function(rectangle, group) {
 			var d = rectangle.width < rectangle.height ? rectangle.width : rectangle.height;
-			var lineWidth = d/10;
+			var lineWidth = rectangle.strokeWidth == 0 ? d/10 : rectangle.strokeWidth; 
+			// let fillColor = rectangle.strokeWidth == 0 ? 'black' : null;
 			var p = new Path({ strokeColor: 'black', strokeWidth: lineWidth });
 			p.add(rectangle.bottomLeft.add(new Point(lineWidth, -lineWidth)));
 			p.add(rectangle.topCenter.add(new Point(0, lineWidth)));
@@ -308,12 +327,14 @@ $(document).ready( function() {
 
 	rectangle.nHeight = 3;
 	rectangle.nWidth = 3;
+	rectangle.strokeWidth = 0;
 
 
 	gui.add(rectangle, 'width', 10, 1000);
 	gui.add(rectangle, 'height', 10, 1000);
 	gui.add(rectangle, 'nHeight', 1, 100);
 	gui.add(rectangle, 'nWidth', 1, 100);
+	gui.add(rectangle, 'strokeWidth', 0, 5).step(0.1);
 
 	let canvasContext = canvas.getContext('2d');
 
@@ -431,6 +452,7 @@ $(document).ready( function() {
 			for(var x=0 ; x < nLocalWidth ; x++) {
 		
 				var localRectangle = new Rectangle(rectangle.left + x * (shapeWidth + marginSize), currentHeight, shapeWidth, shapeHeight);
+				localRectangle.strokeWidth = rectangle.strokeWidth;
 				soundInfo = motif(localRectangle, group);
 			}
 			currentHeight += shapeHeight + marginSize;

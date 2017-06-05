@@ -375,10 +375,12 @@ $(document).ready( function() {
 		// create an svg image, create a link to download the image, and click it
 		let blob = new Blob([svg], {type: 'image/svg+xml'});
 		let url = URL.createObjectURL(blob);
-		let link = document.createElement("a")
+		let link = document.createElement("a");
+		document.body.appendChild(link);
 		link.download = 'flan.svg';
 		link.href = url;
 		link.click();
+		document.body.removeChild(link);
 
 	}}, 'saveSVG');
 
